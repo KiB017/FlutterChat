@@ -1,0 +1,140 @@
+import 'package:counter_app/ChatMessages.dart'; //importa la clase Chatmessages
+import 'package:counter_app/ChatInput.dart'; //importa la clase Chatinput
+import 'package:flutter/material.dart'; //Importa el paquete de flutter
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: ChatScreen(),
+    );
+  }
+}
+
+class ChatScreen extends StatelessWidget {
+  final ScrollController controller =
+      ScrollController(); //Crea un variable con el controlador de scroll
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Parangaricutirimicuaro'), //Nombre del sujeto
+      ),
+      body: Stack(
+        //Esto mantiene fijo el input del chat
+        children: <Widget>[
+          ListView.builder(
+            //ListView.builder contiene y los mensajes
+            controller:
+                controller, //Aqui donde se coloca el controlador de scroll
+            itemCount: 36,
+            itemBuilder: (BuildContext context, int index) {
+              return Chatmessages(); //Aqui contiene todo los mensajes que se va a genera en bucle hasta que llegue a 36 veces
+            },
+          ),
+          Container(
+            alignment: Alignment.bottomCenter,
+            child: Chatinput(),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+//ChatMessages.dart
+import 'package:flutter/material.dart';
+
+class Chatmessages extends StatelessWidget {
+  final ScrollController controller =
+      ScrollController(); //Crea un variable con el controlador de scroll
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: EdgeInsets.all(15.0),
+              child: Text(
+                'Hola',
+                style: TextStyle(color: Colors.white),
+              ),
+              height: 50,
+              width: 200,
+              decoration: BoxDecoration(
+                  color: Colors.blueAccent[400],
+                  borderRadius: BorderRadius.circular(25)),
+            ),
+            SizedBox(width: 10), // Espacio entre el container y la imagen
+            ClipRRect(
+              borderRadius: BorderRadius.circular(25),
+              child: Image.network(
+                'https://media.tenor.com/m2VEX3BeAu4AAAAi/hi.gif',
+                width: 250,
+                height: 250,
+              ),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Container(
+              padding: EdgeInsets.all(15.0),
+              child: Text(
+                'Hola',
+                style: TextStyle(color: Colors.white),
+              ),
+              height: 50,
+              width: 200,
+              decoration: BoxDecoration(
+                  color: Colors.greenAccent[400],
+                  borderRadius: BorderRadius.circular(25)),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+//ChatInput.dart
+import 'package:flutter/material.dart';
+
+class Chatinput extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(8.0),
+      color: Colors.white,
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: 'Escribe un mensaje ;D',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+              ),
+            ),
+          ),
+          IconButton(
+            icon: Icon(Icons.send),
+            onPressed: () {},
+          ),
+        ],
+      ),
+    );
+  }
+}
